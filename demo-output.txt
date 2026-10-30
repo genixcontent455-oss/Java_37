@@ -1,0 +1,118 @@
+University Examination Seating Plan & Hall Ticket Validator
+Course 4CTGC2011 | CMR University | Hall Room 302 | Center CMR-CENTER-01 | 5 x 6 = 30 desks | occupied 0 | Session LIVE-4CTGC2011 (4CTGC2011, 2026-12-15)
+
+===== MENU =====
+1. Register Candidate
+2. Display Registered Candidates
+3. Generate Seating Arrangement
+4. Display Seating Plan
+5. Validate Hall Ticket
+6. Admit Candidate
+7. Display Candidate Seat
+8. Display Attendance Report
+9. Run Complete Demonstration
+10. Exit
+Choose (1-10): 
+##### 1. Register synthetic candidates (12 CSE + 10 ECE) #####
+Registered: 22 | audit registered: 22
+
+##### 2. Try to register Rahul (1CR24CS045) a second time #####
+Rejected -> Duplicate USN rejected: 1CR24CS045
+Registered still: 22 | audit registered still: 22
+
+##### 3-4. Generate and display the seating plan #####
+Hall Room 302 | Center CMR-CENTER-01 | 5 x 6 = 30 desks | occupied 22 | Session DEMO-1 (4CTGC2011, 2026-12-15)
+Row\Col 1          2          3          4          5          6          
+   A    CSE 041    ECE 001    CSE 042    ECE 002    CSE 043    ECE 003    
+   B    ECE 004    CSE 044    ECE 005    CSE 045    ECE 006    CSE 046    
+   C    CSE 047    ECE 007    CSE 048    ECE 008    CSE 049    ECE 009    
+   D    ECE 010    CSE 050    [EMPTY]    CSE 051    [EMPTY]    CSE 052    
+   E    [EMPTY]    [EMPTY]    [EMPTY]    [EMPTY]    [EMPTY]    [EMPTY]    
+Seated candidates      : 22
+Not seated             : 0
+Seated by fallback     : 0
+Adjacent same-dept pairs: 0
+Checkerboard constraint : SATISFIED
+
+##### 5. Assigned desk of every candidate #####
+USN: 1CR24CS041  Name: Arjun      Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-1
+USN: 1CR24CS042  Name: Bhavana    Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-3
+USN: 1CR24CS043  Name: Charan     Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-5
+USN: 1CR24CS044  Name: Divya      Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-2
+USN: 1CR24CS045  Name: Rahul      Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-4
+USN: 1CR24CS046  Name: Farhan     Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-6
+USN: 1CR24CS047  Name: Gayathri   Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-1
+USN: 1CR24CS048  Name: Harsha     Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-3
+USN: 1CR24CS049  Name: Isha       Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-5
+USN: 1CR24CS050  Name: Jayanth    Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: D-2
+USN: 1CR24CS051  Name: Kavya      Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: D-4
+USN: 1CR24CS052  Name: Lokesh     Dept: CSE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: D-6
+USN: 1CR24EC001  Name: Meera      Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-2
+USN: 1CR24EC002  Name: Nikhil     Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-4
+USN: 1CR24EC003  Name: Omkar      Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: A-6
+USN: 1CR24EC004  Name: Pooja      Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-1
+USN: 1CR24EC005  Name: Qadir      Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-3
+USN: 1CR24EC006  Name: Rhea       Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: B-5
+USN: 1CR24EC007  Name: Suresh     Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-2
+USN: 1CR24EC008  Name: Tanvi      Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-4
+USN: 1CR24EC009  Name: Uday       Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: C-6
+USN: 1CR24EC010  Name: Vani       Dept: ECE  Subject: 4CTGC2011  Center: CMR-CENTER-01  Desk: D-1
+
+##### 6-9. Valid scan for Rahul: credential, center, then admit #####
+Credential OK, center OK for Rahul (desk B-4)
+Admission: ADMITTED
+
+##### 10-11. Invalid hall ticket (wrong credential) for Rahul #####
+InvalidHallTicketException [HASH_MISMATCH] -> Hall ticket verification failed. Entry denied.
+
+##### 11b. Malformed (too short / bad characters) credential #####
+InvalidHallTicketException [MALFORMED_CREDENTIAL] -> Hall ticket credential is empty or malformed.
+
+##### 11c. Unregistered candidate #####
+InvalidHallTicketException [NOT_REGISTERED] -> Candidate is not registered. Entry denied.
+
+##### 12-13. Valid candidate (1CR24EC003) at the wrong center #####
+WrongExamCenterException -> Wrong examination center. This candidate must report to center CMR-CENTER-01, not CMR-CENTER-02.
+
+##### 14. Duplicate admission for Rahul #####
+Admission: Duplicate admission blocked: candidate is already admitted for this session.
+Admitted count unchanged: 1
+
+##### Admit 4 more candidates (each one fully validated) #####
+1CR24CS041 -> ADMITTED
+1CR24CS042 -> ADMITTED
+1CR24CS043 -> ADMITTED
+1CR24CS044 -> ADMITTED
+
+##### 15-17. Finalize session, absentees, audit report #####
+Absentees = registered 22 - admitted 5 = 17
+========== ATTENDANCE REPORT ==========
+Session : DEMO-1 | Subject: 4CTGC2011 | Date: 2026-12-15
+Hall    : Room 302 | Center: CMR-CENTER-01
+--- AUDIT: session DEMO-1 ---
+Status               : FINALIZED
+Registered candidates: 22
+Admitted candidates  : 5
+Absentee candidates  : 17
+Admitted USNs: 1CR24CS045, 1CR24CS041, 1CR24CS042, 1CR24CS043, 1CR24CS044
+Absent USNs  : 1CR24CS046, 1CR24CS047, 1CR24CS048, 1CR24CS049, 1CR24CS050, 1CR24CS051, 1CR24CS052, 1CR24EC001, 1CR24EC002, 1CR24EC003, 1CR24EC004, 1CR24EC005, 1CR24EC006, 1CR24EC007, 1CR24EC008, 1CR24EC009, 1CR24EC010
+=======================================
+=== OVERALL AUDIT (all sessions: 2) ===
+Total registered : 22
+Total admitted   : 5
+Total absentees  : 17 (finalized sessions only)
+Note: the overall report also includes any other sessions in this run.
+Demo credentials are synthetic. Real scanner integration is out of scope.
+
+===== MENU =====
+1. Register Candidate
+2. Display Registered Candidates
+3. Generate Seating Arrangement
+4. Display Seating Plan
+5. Validate Hall Ticket
+6. Admit Candidate
+7. Display Candidate Seat
+8. Display Attendance Report
+9. Run Complete Demonstration
+10. Exit
+Choose (1-10): Goodbye.

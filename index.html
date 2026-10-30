@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Project 37 — a Java console application for examination seating, hall-ticket validation, admission control, and attendance reporting.">
+  <title>Project 37 | University Examination System</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020; --panel: #121a2d; --panel2: #18233b;
+      --text: #edf2ff; --muted: #aab6d0; --line: #293653;
+      --accent: #8bb7ff; --accent2: #9de4cf; --gold: #f2ce83;
+      --radius: 18px; --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background:
+        radial-gradient(circle at 15% 0%, rgba(64,104,180,.22), transparent 32rem),
+        radial-gradient(circle at 90% 20%, rgba(48,139,128,.12), transparent 28rem), var(--bg);
+      color: var(--text); font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    header { padding: 24px 0; border-bottom: 1px solid var(--line); }
+    nav { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { font-weight:800; letter-spacing:.04em; }
+    .navlinks { display:flex; flex-wrap:wrap; gap:18px; font-size:.92rem; }
+    .hero { padding: 88px 0 72px; }
+    .eyebrow { color:var(--accent2); font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:.78rem; }
+    h1 { font-size:clamp(2.4rem, 6vw, 4.6rem); line-height:1.06; letter-spacing:-.045em; max-width:900px; margin:18px 0; }
+    .lead { color:var(--muted); font-size:1.15rem; max-width:760px; }
+    .chips { display:flex; flex-wrap:wrap; gap:10px; margin:26px 0; }
+    .chip { border:1px solid var(--line); background:rgba(18,26,45,.7); color:#dce7ff; padding:7px 12px; border-radius:999px; font-size:.85rem; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+    .btn { display:inline-block; border-radius:12px; padding:11px 17px; font-weight:700; background:var(--accent); color:#0b1426; }
+    .btn.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
+    section { padding:54px 0; border-top:1px solid var(--line); }
+    h2 { font-size:clamp(1.7rem, 3vw, 2.35rem); line-height:1.2; margin:0 0 12px; }
+    h3 { margin:0 0 8px; font-size:1.08rem; }
+    .section-lead { color:var(--muted); max-width:760px; margin:0 0 26px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:linear-gradient(150deg,var(--panel),rgba(18,26,45,.78)); border:1px solid var(--line); border-radius:var(--radius); padding:22px; }
+    .card p, .muted { color:var(--muted); margin:0; }
+    .icon { width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:var(--panel2); color:var(--accent2); margin-bottom:15px; font-weight:800; }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    ul { padding-left:20px; color:var(--muted); }
+    li { margin:6px 0; }
+    .steps { counter-reset:step; display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .step { border:1px solid var(--line); background:var(--panel); border-radius:16px; padding:18px; }
+    .step:before { counter-increment:step; content:"0" counter(step); color:var(--gold); font-weight:800; display:block; margin-bottom:12px; }
+    .stack { display:flex; flex-wrap:wrap; gap:10px; }
+    .stack span { background:var(--panel2); border:1px solid var(--line); padding:9px 13px; border-radius:10px; }
+    .team { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .person { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px; }
+    .person small { color:var(--muted); }
+    .note { border-left:3px solid var(--gold); padding:12px 16px; color:var(--muted); background:rgba(242,206,131,.06); border-radius:0 12px 12px 0; }
+    footer { border-top:1px solid var(--line); padding:28px 0 42px; color:var(--muted); font-size:.9rem; }
+    code { color:#c5dcff; background:#0b1426; padding:2px 6px; border-radius:6px; }
+    @media (max-width:800px) { .grid {grid-template-columns:repeat(2,1fr)} .steps {grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px) {
+      .wrap {width:min(100% - 28px,var(--max))}
+      .hero {padding:60px 0 48px}
+      nav {align-items:flex-start; flex-direction:column}
+      .grid,.two,.team,.steps {grid-template-columns:1fr}
+      section {padding:42px 0}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav aria-label="Main navigation">
+      <div class="brand">PROJECT <span style="color:var(--accent)">37</span></div>
+      <div class="navlinks">
+        <a href="#overview">Overview</a><a href="#features">Features</a>
+        <a href="#workflow">Workflow</a><a href="#oop">OOP</a><a href="#team">Team</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="overview" style="border:0">
+    <div class="wrap">
+      <div class="eyebrow">CMR University · Course 4CTGC2011</div>
+      <h1>University Examination Seating Plan <span style="color:var(--accent)">and Hall Ticket Validator</span></h1>
+      <p class="lead">A Java console application that brings candidate registration, department-aware seating, hall-ticket credential checks, examination-centre validation, and attendance reporting into one workflow.</p>
+      <div class="chips">
+        <span class="chip">Project ID: 37</span><span class="chip">Java 17+</span>
+        <span class="chip">Standard JDK</span><span class="chip">No external dependencies</span>
+        <span class="chip">Console application</span>
+      </div>
+      <div class="actions">
+        <a class="btn" href="README.md">Explore repository README</a>
+        <a class="btn secondary" href="docs/architecture.md">System architecture</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="wrap two">
+      <div>
+        <h2>The problem</h2>
+        <p class="section-lead">Manual examination-day processes can make seating allocation, identity checks, duplicate admission prevention, and attendance calculation time-consuming and error-prone.</p>
+      </div>
+      <div class="card">
+        <h3>Project objective</h3>
+        <p class="muted">Provide a structured, testable Java workflow that registers candidates, separates two configured departments in a checkerboard seating layout where possible, verifies ticket credentials and centres, and reports session attendance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Core features</h2>
+      <p class="section-lead">The feature set below reflects the Java implementation in this repository.</p>
+      <div class="grid">
+        <article class="card"><div class="icon">01</div><h3>Candidate registration</h3><p>Validates candidate fields and rejects duplicate university seat numbers.</p></article>
+        <article class="card"><div class="icon">02</div><h3>Checkerboard seating</h3><p>Uses row/column parity to alternate two configured departments across horizontal and vertical neighbours.</p></article>
+        <article class="card"><div class="icon">03</div><h3>Hall-ticket validation</h3><p>Checks credential format, registry membership, SHA-256 hash, and assigned examination centre.</p></article>
+        <article class="card"><div class="icon">04</div><h3>Admission control</h3><p>Blocks duplicate admission, missing enrolment, missing desk assignment, and admission after session closure.</p></article>
+        <article class="card"><div class="icon">05</div><h3>Attendance audit</h3><p>Tracks registered, admitted, and absent candidates separately for each session.</p></article>
+        <article class="card"><div class="icon">06</div><h3>Scripted demonstration</h3><p>Menu option 9 runs a complete example using synthetic candidate data and credentials.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="workflow">
+    <div class="wrap">
+      <h2>System workflow</h2>
+      <p class="section-lead">A simple flow from candidate entry to the final attendance report.</p>
+      <div class="steps">
+        <div class="step"><h3>Register</h3><p class="muted">Create validated Candidate objects and store unique USNs.</p></div>
+        <div class="step"><h3>Allocate</h3><p class="muted">Fill the hall matrix using the two-department checkerboard algorithm.</p></div>
+        <div class="step"><h3>Validate & admit</h3><p class="muted">Verify credential and centre before recording an admission.</p></div>
+        <div class="step"><h3>Finalise</h3><p class="muted">Calculate absentees and produce a session attendance report.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="technology">
+    <div class="wrap two">
+      <div>
+        <h2>Technology stack</h2>
+        <p class="section-lead">Kept intentionally lightweight for a Java OOP coursework project.</p>
+        <div class="stack"><span>Java 17+</span><span>JDK / javac</span><span>Java Collections</span><span>java.time</span><span>MessageDigest</span><span>HTML5</span><span>CSS</span><span>Mermaid docs</span></div>
+      </div>
+      <div class="card">
+        <h3>Run locally</h3>
+        <p class="muted">From the repository root, compile and start the console application:</p>
+        <p style="margin-top:14px"><code>javac -d out src/*.java</code></p>
+        <p style="margin-top:8px"><code>java -cp out Main</code></p>
+        <p class="muted" style="margin-top:14px">Use the Windows command variants in the repository README if running Command Prompt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="oop">
+    <div class="wrap">
+      <h2>Object-oriented concepts</h2>
+      <p class="section-lead">Concepts demonstrated by the current source code.</p>
+      <div class="grid">
+        <article class="card"><h3>Encapsulation</h3><p>Candidate data is private and exposed through validated methods.</p></article>
+        <article class="card"><h3>Abstraction & responsibility</h3><p>Validation, seating, session workflow, and audit logic are separated into classes.</p></article>
+        <article class="card"><h3>Constructor overloading</h3><p>SeatingArrangementEngine provides configurable constructors and uses <code>this(...)</code>.</p></article>
+        <article class="card"><h3>Inheritance</h3><p>Both custom checked exceptions extend Java's <code>Exception</code> class.</p></article>
+        <article class="card"><h3>Method overriding</h3><p>Candidate overrides <code>equals()</code>, <code>hashCode()</code>, and <code>toString()</code>.</p></article>
+        <article class="card"><h3>Enums & exceptions</h3><p>Admission outcomes and invalid-ticket reasons use enums; validation failures use checked and unchecked exceptions.</p></article>
+      </div>
+      <p class="note" style="margin-top:18px">This application is single-threaded. Multithreading and thread synchronisation are not implemented. The static HTML page is a project presentation page only; it is not a frontend connected to the Java program.</p>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <h2>Project team</h2>
+      <p class="section-lead">School of Engineering and Technology · Department of Computer Science and Technology.</p>
+      <div class="team">
+        <div class="person"><h3>Muhammad Umair Usman</h3><small>USN: 25BBTCG035</small></div>
+        <div class="person"><h3>Mohammed Razeen K S</h3><small>USN: 25BBTCG034</small></div>
+      </div>
+      <p class="muted" style="margin-top:18px">Project guide: Dr Pandava Sudharshan Babu · Java Faculty</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Project 37</strong> · 4CTGC2011 · CMR University · 2026–2027
+    <p>Academic Java console application. See <a href="README.md">README.md</a> for setup, test commands, limitations, and detailed documentation.</p>
+  </div>
+</footer>
+</body>
+</html>
